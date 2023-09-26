@@ -22,7 +22,7 @@ export const sessionConfig = {
   cookie: {
     sameSite: 'none',
     secure: true,
-    // httpOnly: true,
+    httpOnly: true,
     // expires: 600000
   },
   secret: process.env.SESSION_SECRET,
