@@ -12,12 +12,16 @@ export default class UsersController {
 	getByUserName = async (req, res) => {
 
 		try {
-			console.log('CONTROLLER REQ:', req.user);
+			console.log('CONTROLLER REQ:', req?.session?.cookie);
 			const usuario = await this.userServices
 				.getByUserName(req.user?.username);
-				console.log('CONTROLLER USUARIO:', usuario);
 			
-			res.json(usuario);	
+
+			const sessionCookie = req.session.cookie;
+
+			res.cookie('connect.sid', sessionCookie, { sameSite: 'none', secure: true, httpOnly: true })
+
+			res.json(usuario);
 
 		} catch (error) {
 
@@ -84,7 +88,7 @@ export default class UsersController {
 	deleteById = async (req, res) => {
 
 		try {
-			
+
 			const deletedUser = await this.userServices
 				.deleteById(req.params.id);
 
@@ -105,7 +109,7 @@ export default class UsersController {
 	getAllUsers = async (req, res) => {
 
 		try {
-			
+
 			const users = await this.userServices
 				.getAllUsers();
 
@@ -144,10 +148,10 @@ export default class UsersController {
 	updateUserPassword = async (req, res) => {
 
 		try {
-			
+
 			const updatedUser = await this.userServices
 				.updateUserPassword(req.body);
-			
+
 			updatedUser
 
 				? res.json(updatedUser)
@@ -161,14 +165,14 @@ export default class UsersController {
 		}
 
 	}
-	
+
 	updateUser = async (req, res) => {
 
 		try {
-			
+
 			const updatedUser = await this.userServices
 				.updateUser(req.params.id, req.body);
-			
+
 			updatedUser
 
 				? res.json(updatedUser)
@@ -182,7 +186,7 @@ export default class UsersController {
 		}
 
 	}
-	
+
 	updateUserReserves = async (req, res) => {
 
 		try {
@@ -207,10 +211,10 @@ export default class UsersController {
 	deleteReserveById = async (req, res) => {
 
 		try {
-			
+
 			let deletedReserve = await this.userServices.
 				deleteReserveById(req.body.username, req.body.reserveId)
-			
+
 			res.json(deletedReserve);
 
 		} catch (error) {
