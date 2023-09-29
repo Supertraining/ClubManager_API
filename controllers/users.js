@@ -31,7 +31,7 @@ export default class UsersController {
 		
 			const { password, isAdmin, ...otherDetails } = response.user._doc;
 	
-			res.cookie('access_token', response.token, { httpOnly: true })
+			res.cookie('access_token', response.token, { httpOnly: true, sameSite: 'none', secure: true })
 					.status(200)
 			.json({ ...{ ...otherDetails }, isAdmin });
 
