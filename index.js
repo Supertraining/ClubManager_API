@@ -3,7 +3,6 @@ import session from 'express-session';
 import cors from 'cors';
 import * as config from './config/config.js';
 import { connect } from './utils/mongoConnection.js';
-import passport from 'passport';
 import CourtsRouter from './routes/courts.js';
 import UserRouter from './routes/users.js';
 import EventRouter from './routes/events.js';
@@ -22,8 +21,6 @@ app.use(cors({
 }));
 
 app.use(session(config.sessionConfig));
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(json());
 app.use(urlencoded({ extended: true }));

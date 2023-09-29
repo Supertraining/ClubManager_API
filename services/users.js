@@ -2,6 +2,8 @@ import UsersDAO from "../DAOs/users.js";
 import { emailUpdatePasswordNotification } from "../utils/emailNotifications.js";
 import logger from "../utils/logger.js";
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { secretKey } from "../config/config.js";
 
 export default class UsersServices {
 
@@ -10,37 +12,15 @@ export default class UsersServices {
         this.DAO = UsersDAO.getInstance();
 
     }
-
-    async getByUserName(username) {
-
+    async register(data) {
         try {
 
-            const user = await this.DAO
-                .getByUserName(username);
-          
-            if (user.length === 0) {
+            const checkUser = await this.getByUserName(data.username);
 
-                logger.info(`No existe el usuario ${username}`);
+            if (checkUser) return false;
 
-                return false
-            }
-
-            return user[0];
-
-        } catch (error) {
-
-            logger.error(error);
-
-        }
-
-    }
-
-    async insertUser(data) {
-
-        try {
-        
             const newUser = await this.DAO
-                .insertUser(
+                .register(
 
                     {
                         ...data,
@@ -49,8 +29,8 @@ export default class UsersServices {
                     }
 
                 );
-    
-            return newUser[0];
+
+            return newUser;
 
 
         } catch (error) {
@@ -60,6 +40,50 @@ export default class UsersServices {
         }
 
     }
+
+    async login(data) {
+        try {
+            const user = await this.getByUserName(data.username);
+            console.log('USER:', user)
+            if (!user) return 'user not found';
+
+            const isPasswordCorrect = await bcrypt.compare(data.password, user.password);
+            if (!isPasswordCorrect) return 'Wrong password or username';
+
+            const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, secretKey, { expiresIn: '1h' });
+         
+            return {user:user, token:token};
+
+        } catch (error) {
+
+            logger.error(error);
+
+        }
+    };
+    async getByUserName(username) {
+
+        try {
+
+            const user = await this.DAO
+                .getByUserName(username);
+
+            if (!user) {
+
+                return false
+
+            }
+
+            return user;
+
+        } catch (error) {
+
+            logger.error(error);
+
+        }
+
+    }
+
+
 
     async deleteById(id) {
 
@@ -139,16 +163,16 @@ export default class UsersServices {
     async updateUserPassword(data) {
 
         try {
-           
+
             const updateUser = await this.DAO
-                .updateUserPassword( {
+                .updateUserPassword({
                     ...data,
                     password: bcrypt.hashSync(data.password,
                         bcrypt.genSaltSync(10))
                 });
-            
-            if(updateUser)
-            emailUpdatePasswordNotification(data);
+
+            if (updateUser)
+                emailUpdatePasswordNotification(data);
             const updatedUser = await this.DAO
                 .getById(data._id);
 

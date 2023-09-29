@@ -6,6 +6,7 @@ dotenv.config({ path: './config/.env' });
 export const port = process.env.PORT || 8080;
 export const mongoUrl = process.env.MONGO_URL;
 
+export const secretKey = process.env.JWT_SECRET;
 
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 export const sessionConfig = {
@@ -18,13 +19,6 @@ export const sessionConfig = {
       ttl: 600,
     },
   ),
-  //Esta conf de cookie es solo para deploy, comentar en local sin req.isAuthticated() devuelve false
-  cookie: {
-    sameSite: 'none',
-    secure: true,
-    httpOnly: true,
-    // expires: 600000
-  },
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,

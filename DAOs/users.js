@@ -5,33 +5,12 @@ let instance = null;
 
 export default class UsersDAO {
 
-
-  async getByUserName(username) {
-
+  async register(data) {
     try {
 
-      let data = await model
-        .usermodel
-        .find({ username: username });
-
-      return data;
-
-    } catch (err) {
-
-      logger.error(err);
-
-    }
-
-  }
-
-  async insertUser(data) {
-    console.log(data)
-    try {
-      
       let newUser = await model
         .usermodel
         .insertMany(data);
-
       return newUser;
 
     } catch (err) {
@@ -42,16 +21,36 @@ export default class UsersDAO {
 
   }
 
-  async deleteById(id) {
+  async getByUserName(username) {
 
     try {
      
+      let data = await model
+        .usermodel
+        .findOne({ username: username });
+      
+      return data; 
+
+    } catch (err) {
+
+      logger.error(err);
+
+    }
+
+  }
+
+
+
+  async deleteById(id) {
+
+    try {
+
       const data = await model
         .usermodel
         .deleteOne({ _id: id });
 
       return data;
-     
+
     } catch (err) {
 
       logger.error(err);
@@ -81,7 +80,7 @@ export default class UsersDAO {
   async getById(id) {
 
     try {
-   
+
       const data = await model
         .usermodel
         .findById(id);
@@ -98,11 +97,11 @@ export default class UsersDAO {
   async updateUserPassword(data) {
 
     try {
-      
+
       const updatedUser = await model
         .usermodel
         .updateOne({ _id: data._id }, { $set: data });
-      
+
       return updatedUser;
 
     } catch (err) {
@@ -115,11 +114,11 @@ export default class UsersDAO {
   async updateUser(id, data) {
 
     try {
-      
+
       const updatedUser = await model
         .usermodel
         .updateOne({ _id: id }, { $set: data });
-      
+
       return updatedUser;
 
     } catch (err) {
@@ -143,7 +142,7 @@ export default class UsersDAO {
             $push:
             {
 
-              [`reserves`]: reserveData
+              [ `reserves` ]: reserveData
 
             }
           }
@@ -173,7 +172,7 @@ export default class UsersDAO {
             $pull:
             {
 
-              [`reserves`]: { id: reserveId }
+              [ `reserves` ]: { id: reserveId }
 
             }
           }
