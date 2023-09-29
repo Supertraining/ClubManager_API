@@ -26,14 +26,21 @@ export default class UsersController {
 	};
 	login = async (req, res) => {
 		try {
-			
+
 			const response = await this.userServices.login(req.body)
-		
-			const { password, isAdmin, ...otherDetails } = response.user._doc;
+			const { user, pass, ...errorResponse } = response
 	
+			if (!response.user)
+				return res.status(404).send(errorResponse);
+					
+			if (response?.pass === false && response.user)
+				return res.status(404).send(errorResponse);
+
+			const { password, isAdmin, ...otherDetails } = response?.user._doc;
+
 			res.cookie('access_token', response.token, { httpOnly: true, sameSite: 'none', secure: true })
-					.status(200)
-			.json({ ...{ ...otherDetails }, isAdmin });
+				.status(200)
+				.json({ ...{ ...otherDetails }, isAdmin });
 
 		} catch (error) {
 

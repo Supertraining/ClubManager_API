@@ -25,7 +25,8 @@ export default class UsersServices {
                     {
                         ...data,
                         password: bcrypt.hashSync(data.password,
-                            bcrypt.genSaltSync(10))
+                            bcrypt.genSaltSync(10)),
+                        admin: data.admin || false
                     }
 
                 );
@@ -43,16 +44,18 @@ export default class UsersServices {
 
     async login(data) {
         try {
+
             const user = await this.getByUserName(data.username);
-            
-            if (!user) return 'user not found';
+            if (!user)
+                return { message: 'user not found', user: user };
 
             const isPasswordCorrect = await bcrypt.compare(data.password, user.password);
-            if (!isPasswordCorrect) return 'Wrong password or username';
+            if (!isPasswordCorrect)
+                return { message: 'Wrong password or username', pass: isPasswordCorrect, user: user.username };
 
             const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, secretKey, { expiresIn: '1h' });
-         
-            return {user:user, token:token};
+
+            return { user: user, token: token };
 
         } catch (error) {
 
