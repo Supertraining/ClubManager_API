@@ -8,21 +8,6 @@ export const mongoUrl = process.env.MONGO_URL;
 
 export const secretKey = process.env.JWT_SECRET;
 
-const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
-export const sessionConfig = {
-
-  store: MongoStore.create(
-    {
-      mongoUrl: process.env.MONGO_URL,
-      mongoOptions: advancedOptions,
-      collectionName: 'sessions',
-      ttl: 600,
-    },
-  ),
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-};
 
 export const gmailData = {
   gmailService: process.env.SERVICE,

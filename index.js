@@ -1,5 +1,4 @@
 import express, { json, urlencoded } from 'express';
-import session from 'express-session';
 import cors from 'cors';
 import * as config from './config/config.js';
 import { connect } from './utils/mongoConnection.js';
@@ -19,8 +18,6 @@ app.use(cors({
   origin: [ 'https://club-manager-client.netlify.app', 'http://localhost:5173', 'http://localhost:5174' ],
   credentials: true
 }));
-
-app.use(session(config.sessionConfig));
 
 app.use(json());
 app.use(urlencoded({ extended: true }));

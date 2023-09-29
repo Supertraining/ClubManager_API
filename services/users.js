@@ -44,7 +44,7 @@ export default class UsersServices {
     async login(data) {
         try {
             const user = await this.getByUserName(data.username);
-            console.log('USER:', user)
+            
             if (!user) return 'user not found';
 
             const isPasswordCorrect = await bcrypt.compare(data.password, user.password);
