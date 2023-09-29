@@ -58,34 +58,6 @@ export default class UsersController {
 
 	}
 
-	logout = async (req, res) => {
-
-		try {
-
-			req.logout((error) => {
-
-				if (error) {
-
-					logger.error('Error en cierre de sesión');
-
-				} else {
-
-					logger.info('session eliminada con éxito');
-
-				}
-
-			});
-
-			res.json(true);
-
-		} catch (error) {
-
-			routeLogger(req, 'error', error);
-
-		}
-
-	}
-
 	failLogin = (req, res) => {
 
 		try {

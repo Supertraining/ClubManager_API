@@ -58,15 +58,6 @@ export default class UserRouter {
 
         );
 
-        router.post(
-
-            '/logout',
-
-            this.controllers
-                .logout
-
-        );
-
         router.get(
 
             '/',
