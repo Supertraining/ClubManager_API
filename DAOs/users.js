@@ -11,7 +11,7 @@ export default class UsersDAO {
       let newUser = await model
         .usermodel
         .insertMany(data);
-      return newUser;
+      return newUser[0];
 
     } catch (err) {
 

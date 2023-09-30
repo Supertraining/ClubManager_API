@@ -11,9 +11,9 @@ export default class UsersController {
 
 	register = async (req, res) => {
 		try {
-
+	
 			const newUser = await this.userServices.register(req.body)
-
+		
 			newUser
 				? res.status(201).json(newUser)
 				: res.status(404).json({ message: 'Error de registro' })

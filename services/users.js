@@ -1,5 +1,5 @@
 import UsersDAO from "../DAOs/users.js";
-import { emailUpdatePasswordNotification } from "../utils/emailNotifications.js";
+import { emailNewUserNotification, emailUpdatePasswordNotification } from "../utils/emailNotifications.js";
 import logger from "../utils/logger.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -14,7 +14,7 @@ export default class UsersServices {
     }
     async register(data) {
         try {
-
+            
             const checkUser = await this.getByUserName(data.username);
 
             if (checkUser) return false;
@@ -30,7 +30,7 @@ export default class UsersServices {
                     }
 
                 );
-
+            newUser && emailNewUserNotification(data.username, data);
             return newUser;
 
 
@@ -85,8 +85,6 @@ export default class UsersServices {
         }
 
     }
-
-
 
     async deleteById(id) {
 
