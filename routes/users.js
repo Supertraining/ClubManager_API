@@ -1,6 +1,6 @@
 import { Router } from "express";
 import UsersController from '../controllers/users.js';
-import { validateUserReservation } from "./middlewares/reservesValidator.js";
+import { validate } from "./middlewares/dataValidator.js";
 
 const router = Router();
 
@@ -13,6 +13,8 @@ export default class UserRouter {
 
         router.post(
             '/register',
+
+            validate.user,
 
          this.controllers.register,
     
@@ -117,7 +119,7 @@ export default class UserRouter {
 
             '/reserves/:username',
 
-            validateUserReservation,
+            validate.userReservation,
 
             this.controllers
                 .updateUserReserves

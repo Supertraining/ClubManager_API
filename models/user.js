@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    username: { type: String, require: true, unique: true, validate: [/\S+@\S+\.\S+/] },
+    username: { type: String, require: true, unique: true },
     password: { type: String, require: true },
     nombre: { type: String, require: true },
     apellido: { type: String, require: true },

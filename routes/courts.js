@@ -1,6 +1,6 @@
 import { Router } from "express";
 import CourtsControllers from "../controllers/courts.js";
-import { validateCourtReservation } from "./middlewares/reservesValidator.js";
+import { validate } from "./middlewares/dataValidator.js";
 
 const router = Router();
 
@@ -50,7 +50,7 @@ export default class CourtsRouter {
 
             "/reserve",
 
-            validateCourtReservation,
+            validate.courtReservation,
 
             this.controllers
                 .reserveDate
