@@ -121,6 +121,20 @@ export default class CourtServices {
 
         }
     }
+    deleteUserReserves = async (user) => {
+        try {
+
+            let data = await this.courtsDAO
+                .deleteUserReserves(user);
+            
+            return data;
+            
+        } catch (error) {
+            
+            logger.log(error)
+
+        }
+    }
 
     updateReservesUser = async (user) => {
         try {

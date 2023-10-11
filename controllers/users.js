@@ -11,9 +11,9 @@ export default class UsersController {
 
 	register = async (req, res) => {
 		try {
-	
+
 			const newUser = await this.userServices.register(req.body)
-		
+
 			newUser
 				? res.status(201).json(newUser)
 				: res.status(404).json({ message: 'Error de registro' })
@@ -26,19 +26,18 @@ export default class UsersController {
 	};
 	login = async (req, res) => {
 		try {
-
 			const response = await this.userServices.login(req.body)
 			const { user, pass, ...errorResponse } = response
-	
+
 			if (!response.user)
 				return res.status(404).send(errorResponse);
-					
+
 			if (response?.pass === false && response.user)
 				return res.status(404).send(errorResponse);
 
 			const { password, isAdmin, ...otherDetails } = response?.user._doc;
 
-			res.cookie('access_token', response.token, { httpOnly: true, sameSite: 'none', secure: true })
+			res.cookie('access_token', response.token, { httpOnly: true, sameSite: 'none', secure: true})
 				.status(200)
 				.json({ ...{ ...otherDetails }, isAdmin });
 
@@ -51,11 +50,15 @@ export default class UsersController {
 	getByUserName = async (req, res) => {
 
 		try {
-
-			const usuario = await this.userServices
-				.getByUserName(req.username);
-
-			res.json(usuario);
+			
+			if (req.headers.cookie) {
+				const usuario = await this.userServices
+				.getByUserName(req.headers.authorization);
+			usuario 
+				res.json(usuario)
+			} else {
+				res.json(false)
+			}
 
 		} catch (error) {
 

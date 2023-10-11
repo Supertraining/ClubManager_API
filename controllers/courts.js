@@ -89,7 +89,7 @@ export default class CourtsControllers {
             
             res.json(data);
             
-        } catch (erroror) {
+        } catch (error) {
 
             routeLogger(req, 'error', error);
             
@@ -97,6 +97,20 @@ export default class CourtsControllers {
        
     }
 
+    deleteUserReserves = async (req, res) => {
+        try {
+
+            let data = await this.courtsService
+                .deleteUserReserves(req.body);
+            
+            res.json(data);
+            
+        } catch (error) {
+
+            routeLogger(req, 'error', error);
+
+        }
+    }
     deleteOldReserves = async (req, res) => {
         try {
 
@@ -105,7 +119,7 @@ export default class CourtsControllers {
             
             res.json(data);
             
-        } catch (erroror) {
+        } catch (error) {
 
             routeLogger(req, 'error', error);
 

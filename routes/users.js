@@ -27,7 +27,7 @@ export default class UserRouter {
             async (req, res) => {
 
                 try {
-
+                    console.log('hola')
                     req.isAuthenticated()
 
                         ? res.json(true)
@@ -65,7 +65,7 @@ export default class UserRouter {
             '/',
 
             async (req, res) => {
-
+                
                 res.redirect('/home');
 
             }

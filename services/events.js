@@ -56,11 +56,11 @@ export default class EventServices {
 
   }
 
-  async updateEvent(id, data) {
+  async updateEvent(data) {
     try {
 
       const updatedEvent = await this.EventDAO
-        .updateEvent(id, data);
+        .updateEvent(data);
       
       return updatedEvent
       

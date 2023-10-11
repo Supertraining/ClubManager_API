@@ -57,8 +57,8 @@ export default class EventControllers {
 
   updateEvent = async (req, res) => {
     try {
-
-      const updatedEvent = await this.services.updateEvent(req.id, req.data);
+     
+      const updatedEvent = await this.services.updateEvent(req.body);
 
       res.json(updatedEvent);
       

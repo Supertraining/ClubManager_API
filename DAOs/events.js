@@ -56,13 +56,13 @@ export default class EventDAO {
 
   }
 
-  async updateEvent(id, data) {
+  async updateEvent(data) {
 
     try {
 
       const updatedEvent = await model
         .eventModel
-        .updateOne({ _id: id }, { $set: data });
+        .updateOne({ _id: data.id }, { $set: {...data} });
 
     } catch (err) {
 

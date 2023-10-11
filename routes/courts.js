@@ -64,6 +64,13 @@ export default class CourtsRouter {
             this.controllers
                 .deleteReserveById
         )
+        router.put(
+
+            "/reserve/deleteByUsername",
+
+            this.controllers
+                .deleteUserReserves
+        )
 
         router.put(
 

@@ -44,7 +44,7 @@ export default class UsersServices {
 
     async login(data) {
         try {
-
+            
             const user = await this.getByUserName(data.username);
             if (!user)
                 return { message: 'user not found', user: user };
@@ -69,10 +69,10 @@ export default class UsersServices {
 
             const user = await this.DAO
                 .getByUserName(username);
-
+            
             if (!user) {
 
-                return false
+                return null
 
             }
 

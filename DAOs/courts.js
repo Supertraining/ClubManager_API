@@ -54,6 +54,7 @@ export default class CourtsDAO {
 
         }
     }
+
     getUnavailableDatesByName = async (name) => {
 
         try {
@@ -141,7 +142,7 @@ export default class CourtsDAO {
                         return reserve.initialTime > yesterday.getTime()
                     });
                 }
-               
+
                 const result = await model.courtModel.updateOne(
                     { _id: court._id },
                     { $set: { unavailableDates: court.unavailableDates } }
@@ -149,6 +150,32 @@ export default class CourtsDAO {
 
                 logger.info(result.modifiedCount + ' reserves deleted from ' + court.name);
             }
+        } catch (error) {
+            logger.error(error);
+        }
+    }
+    deleteUserReserves = async (user) => {
+       
+        try {
+
+            const courts = await model.courtModel.find();
+            for (const court of courts) {
+                for (const [ dayOfWeek, reserves ] of Object.entries(court.unavailableDates)) {
+
+                    court.unavailableDates[ dayOfWeek ] = reserves.filter((reserve) => {
+
+                        return reserve.user != user.username
+                    });
+                }
+
+                const result = await model.courtModel.updateOne(
+                    { _id: court._id },
+                    { $set: { unavailableDates: court.unavailableDates } }
+                );
+
+                logger.info(result.modifiedCount + ' reserves deleted from ' + court.name);
+            }
+
         } catch (error) {
             logger.error(error);
         }
