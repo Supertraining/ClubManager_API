@@ -2,9 +2,7 @@ import express, { json, urlencoded } from 'express';
 import cors from 'cors';
 import * as config from './config/config.js';
 import { connect } from './utils/mongoConnection.js';
-import CourtsRouter from './routes/courts.js';
-import UserRouter from './routes/users.js';
-import EventRouter from './routes/events.js';
+import router from './routes/index.js'
 import logger from './utils/logger.js';
 import helmet from "helmet";
 import cron from 'node-cron';
@@ -21,13 +19,7 @@ app.use(cors({
 
 app.use(json());
 app.use(urlencoded({ extended: true }));
-
-const courtsRouter = new CourtsRouter();
-const userRouter = new UserRouter();
-const eventsRouter = new EventRouter();
-app.use(userRouter.start());
-app.use('/courts', courtsRouter.start());
-app.use('/events', eventsRouter.start());
+app.use(router)
 
 process.env.TZ = 'America/Argentina/Buenos_Aires';
 cron.schedule('19 17 * * *', repeatPermanentReservations);
