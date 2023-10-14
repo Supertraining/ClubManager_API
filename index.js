@@ -30,12 +30,13 @@ app.use('/courts', courtsRouter.start());
 app.use('/events', eventsRouter.start());
 
 process.env.TZ = 'America/Argentina/Buenos_Aires';
-cron.schedule('01 00 * * *', repeatPermanentReservations);
+cron.schedule('19 17 * * *', repeatPermanentReservations);
 
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
   connect(config.mongoUrl)
   logger.info(`Club Manager app listening at ${PORT}`);
+
 })
 
