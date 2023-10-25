@@ -1,4 +1,4 @@
-import { body, validationResult } from 'express-validator';
+import { body, param, validationResult } from 'express-validator';
 
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
@@ -35,6 +35,7 @@ export const validate = {
 
     handleValidationErrors
   ],
+
   user: [
     body('username').exists().trim().notEmpty().isEmail().normalizeEmail()
       .custom(value => {
@@ -50,5 +51,53 @@ export const validate = {
     body('telefono').exists().trim().notEmpty(),
 
     handleValidationErrors
-  ]
+  ],
+  userUpdate: [
+    param('id').exists().trim().notEmpty(),
+    body('username').exists().trim().notEmpty().isEmail().normalizeEmail().optional().optional()
+      .custom(value => {
+        if (value.includes('.com.com')) {
+          throw new Error()
+        }
+        return true;
+      }),
+    body('password').exists().trim().notEmpty().optional(),
+    body('nombre').exists().trim().notEmpty().optional(),
+    body('apellido').exists().trim().notEmpty().optional(),
+    body('edad').exists().trim().notEmpty().optional(),
+    body('telefono').exists().trim().notEmpty().optional(),
+
+    handleValidationErrors
+  ],
+  userUpdatePassword: [
+    body('password').exists().trim().notEmpty()
+  ],
+  
+  activityId: [
+    //Esta expresión regular /^[0-9a-fA-F]{24}$/ asegura que el ID cumpla con los requisitos de "una cadena de 24 caracteres hexadecimales"
+    param('id').exists().trim().notEmpty().matches(/^[0-9a-fA-F]{24}$/),
+
+    handleValidationErrors
+  ],
+  activity: [
+    body('img').exists().trim().notEmpty(),
+    body('imgText').exists().trim().notEmpty(),
+    body('activity').exists().trim().notEmpty(),
+    body('description').exists().trim().notEmpty(),
+    body('category.*.name').exists().trim().notEmpty(),
+    body('category.*.age_range').exists().trim().notEmpty(),
+    body('category.*.days').exists().trim().notEmpty(),
+    body('category.*.schedule').exists().trim().notEmpty(),
+  ],
+  activityUpdate: [
+    body('img').exists().trim().notEmpty().optional(),
+    body('imgText').exists().trim().notEmpty().optional(),
+    body('activity').exists().trim().notEmpty().optional(),
+    body('description').exists().trim().notEmpty().optional(),
+    body('category.*.name').exists().trim().notEmpty().optional(),
+    body('category.*.age_range').exists().trim().notEmpty().optional(),
+    body('category.*.days').exists().trim().notEmpty().optional(),
+    body('category.*.schedule').exists().trim().notEmpty().optional(),
+  ],
+
 }

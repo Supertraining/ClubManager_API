@@ -130,6 +130,8 @@ export default class UserRouter {
 
             '/update',
 
+            validate.userUpdatePassword,
+
             this.controllers
                 .updateUserPassword
 
@@ -138,6 +140,8 @@ export default class UserRouter {
         router.put(
 
             '/update/:id',
+
+            validate.activityUpdate,
 
             this.controllers
                 .updateUser
