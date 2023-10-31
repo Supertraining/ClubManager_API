@@ -1,5 +1,7 @@
 import * as model from "../models/activity.js";
 import logger from "../utils/logger.js";
+
+let instance = null;
 export default class ActivityDAO {
 
   save = async (activityData) => {
@@ -24,7 +26,7 @@ export default class ActivityDAO {
   }
   getById = async (id) => {
     try {
-      const activity = await model.activityModel.findOne({ _id: id });    
+      const activity = await model.activityModel.findOne({ _id: id });
       return activity;
     } catch (error) {
       logger.error(error);
@@ -61,6 +63,24 @@ export default class ActivityDAO {
 
     } catch (error) {
       logger.error(error);
+    }
+  }
+  static getInstance = async () => {
+    try {
+      if (!instance) {
+
+        instance = new ActivityDAO();
+
+        logger.info('Se ha creado una instancia de ActivityDAO');
+
+      }
+
+      logger.info('Se ha utilizado una instancia ya creada de ActivityDAO');
+
+      return instance;
+      
+    } catch (error) {
+
     }
   }
 }

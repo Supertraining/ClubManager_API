@@ -1,4 +1,5 @@
 import * as model from '../models/court.js';
+import { usermodel } from '../models/user.js';
 import logger from '../utils/logger.js';
 
 let instance = null;
@@ -150,12 +151,26 @@ export default class CourtsDAO {
 
                 logger.info(result.modifiedCount + ' reserves deleted from ' + court.name);
             }
+            const users = await usermodel.find();
+            for (const user of users) {
+                user.reserves = user.reserves.filter((reserve) => {
+                    return reserve.initialTime > yesterday.getTime()
+                })
+
+                const userResult = await usermodel.updateOne(
+                    { _id: user._id },
+                    { $set: { reserves: user.reserves } }
+                )
+
+                logger.info(userResult.modifiedCount + ' reserves deleted from ' + user.username);
+
+            }
         } catch (error) {
             logger.error(error);
         }
     }
     deleteUserReserves = async (user) => {
-       
+
         try {
 
             const courts = await model.courtModel.find();

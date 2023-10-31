@@ -39,8 +39,6 @@ export default class UsersDAO {
 
   }
 
-
-
   async deleteById(id) {
 
     try {

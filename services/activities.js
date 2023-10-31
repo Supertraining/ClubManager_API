@@ -3,7 +3,7 @@ import logger from "../utils/logger.js";
 
 export default class ActivityServices {
   constructor() {
-    this.activityServices = new ActivityDAO();
+    this.activityServices = ActivityDAO.getInstance();
   }
   save = async (activityData) => {
     try {
