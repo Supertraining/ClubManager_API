@@ -65,8 +65,9 @@ export default class ActivityDAO {
       logger.error(error);
     }
   }
-  static getInstance = async () => {
+  static getInstance() {
     try {
+      
       if (!instance) {
 
         instance = new ActivityDAO();

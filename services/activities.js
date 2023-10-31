@@ -13,6 +13,7 @@ export default class ActivityServices {
       logger.error(error);
     }
   }
+
   getAll = async () => {
     try {
       const activity = await this.activityServices.getAll();
@@ -21,6 +22,7 @@ export default class ActivityServices {
       logger.error(error);
     }
   }
+
   getById = async (id) => {
     try {
       const activity = await this.activityServices.getById(id);
@@ -29,6 +31,7 @@ export default class ActivityServices {
       logger.error(error);
     }
   }
+
   update = async (data) => {
     try {
       const activity = await this.activityServices.update(data);
@@ -37,6 +40,7 @@ export default class ActivityServices {
       logger.error(error);
     }
   }
+
   delete = async (id) => {
     try {
       const activity = await this.activityServices.delete(id);
@@ -45,6 +49,7 @@ export default class ActivityServices {
       logger.error(error);
     }
   }
+
   deleteAll = async () => {
     try {
       const activity = await this.activityServices.deleteAll();
@@ -53,4 +58,5 @@ export default class ActivityServices {
       logger.error(error);
     }
   }
+  
 }
