@@ -1,5 +1,5 @@
 import { Router } from "express";
-import CourtsControllers from "../controllers/courts.js";
+import CourtsControllers from "../apis/courts/controllers/courts.js";
 import { validate } from "./middlewares/dataValidator.js";
 
 const router = Router();

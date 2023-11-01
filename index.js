@@ -1,12 +1,12 @@
 import express, { json, urlencoded } from 'express';
 import cors from 'cors';
-import * as config from './config/config.js';
-import { connect } from './utils/mongoConnection.js';
-import router from './routes/index.js'
-import logger from './utils/logger.js';
+import * as config from './src/config/config.js';
+import { connect } from './src/utils/mongoConnection.js';
+import router from './src/routes/index.js'
+import logger from './src/utils/logger.js';
 import helmet from "helmet";
 import cron from 'node-cron';
-import { repeatPermanentReservations } from './utils/updatePermanentReservations.js';
+import { repeatPermanentReservations } from './src/utils/updatePermanentReservations.js';
 
 const app = express();
 

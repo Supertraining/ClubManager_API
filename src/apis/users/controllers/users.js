@@ -1,5 +1,5 @@
 import UsersServices from '../services/users.js';
-import logger, { routeLogger } from '../utils/logger.js';
+import { routeLogger } from '../../../utils/logger.js';
 
 export default class UsersController {
 

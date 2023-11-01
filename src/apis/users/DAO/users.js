@@ -1,5 +1,5 @@
-import * as model from '../models/user.js';
-import logger from '../utils/logger.js';
+import * as model from '../../../models/user.js';
+import logger from '../../../utils/logger.js';
 
 let instance = null;
 
@@ -11,7 +11,7 @@ export default class UsersDAO {
       let newUser = await model
         .usermodel
         .insertMany(data);
-      return newUser[0];
+      return newUser[ 0 ];
 
     } catch (err) {
 
@@ -24,12 +24,12 @@ export default class UsersDAO {
   async getByUserName(username) {
 
     try {
-     
+
       let data = await model
         .usermodel
         .findOne({ username: username });
-      
-      return data; 
+
+      return data;
 
     } catch (err) {
 

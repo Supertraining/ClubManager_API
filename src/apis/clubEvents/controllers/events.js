@@ -1,5 +1,5 @@
 import EventServices from "../services/events.js";
-import routeLogger from "../utils/logger.js";
+import routeLogger from "../../../utils/logger.js";
 
 export default class EventControllers {
 

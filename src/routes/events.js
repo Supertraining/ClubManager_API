@@ -1,4 +1,4 @@
-import EventControllers from "../controllers/events.js";
+import EventControllers from "../apis/clubEvents/controllers/events.js";
 import { Router } from "express";
 
 const router = Router();

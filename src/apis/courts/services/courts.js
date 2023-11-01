@@ -1,5 +1,5 @@
-import CourtsDAO from "../DAOs/courts.js";
-import logger from "../utils/logger.js";
+import CourtsDAO from "../DAO/courts.js";
+import logger from "../../../utils/logger.js";
 
 export default class CourtServices {
 

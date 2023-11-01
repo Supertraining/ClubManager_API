@@ -1,5 +1,5 @@
-import * as model from '../models/events.js';
-import logger from '../utils/logger.js';
+import * as model from '../../../models/events.js';
+import logger from '../../../utils/logger.js';
 
 let instance = null;
 export default class EventDAO {

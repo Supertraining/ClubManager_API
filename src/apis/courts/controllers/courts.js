@@ -1,5 +1,5 @@
 import CourtServices from "../services/courts.js";
-import { routeLogger } from "../utils/logger.js";
+import { routeLogger } from "../../../utils/logger.js";
 
 export default class CourtsControllers {
     constructor() {

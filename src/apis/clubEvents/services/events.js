@@ -1,5 +1,5 @@
-import EventDAO from "../DAOs/events.js";
-import logger from '../utils/logger.js'
+import EventDAO from "../DAO/events.js";
+import logger from '../../../utils/logger.js'
 
 export default class EventServices {
 

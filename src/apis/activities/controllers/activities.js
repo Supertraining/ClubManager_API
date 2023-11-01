@@ -1,5 +1,5 @@
 import ActivityServices from "../services/activities.js";
-import { routeLogger } from "../utils/logger.js";
+import { routeLogger } from "../../../utils/logger.js";
 
 export default class ActivityControllers {
   constructor() {

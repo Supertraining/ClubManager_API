@@ -1,9 +1,9 @@
-import UsersDAO from "../DAOs/users.js";
-import { emailNewUserNotification, emailUpdatePasswordNotification } from "../utils/emailNotifications.js";
-import logger from "../utils/logger.js";
+import UsersDAO from "../DAO/users.js";
+import { emailNewUserNotification, emailUpdatePasswordNotification } from "../../../utils/emailNotifications.js";
+import logger from "../../../utils/logger.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { secretKey } from "../config/config.js";
+import { secretKey } from "../../../config/config.js";
 
 export default class UsersServices {
 
@@ -14,7 +14,7 @@ export default class UsersServices {
     }
     async register(data) {
         try {
-            
+
             const checkUser = await this.getByUserName(data.username);
 
             if (checkUser) return false;
@@ -44,7 +44,7 @@ export default class UsersServices {
 
     async login(data) {
         try {
-            
+
             const user = await this.getByUserName(data.username);
             if (!user)
                 return { message: 'user not found', user: user };
@@ -69,7 +69,7 @@ export default class UsersServices {
 
             const user = await this.DAO
                 .getByUserName(username);
-            
+
             if (!user) {
 
                 return null

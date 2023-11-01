@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import MongoStore from 'connect-mongo';
 
-dotenv.config({ path: './config/.env' });
+dotenv.config({ path: './src/config/.env' });
 
 export const port = process.env.PORT || 8080;
 export const mongoUrl = process.env.MONGO_URL;

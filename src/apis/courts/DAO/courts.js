@@ -1,6 +1,6 @@
-import * as model from '../models/court.js';
-import { usermodel } from '../models/user.js';
-import logger from '../utils/logger.js';
+import * as model from '../../../models/court.js';
+import { usermodel } from '../../../models/user.js';
+import logger from '../../../utils/logger.js';
 
 let instance = null;
 export default class CourtsDAO {

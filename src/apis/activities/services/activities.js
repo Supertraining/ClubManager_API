@@ -1,5 +1,5 @@
-import ActivityDAO from "../DAOs/activities.js";
-import logger from "../utils/logger.js";
+import ActivityDAO from "../DAO/activities.js";
+import logger from "../../../utils/logger.js";
 
 export default class ActivityServices {
   constructor() {

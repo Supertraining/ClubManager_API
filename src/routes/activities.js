@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import ActivityControllers from '../controllers/activities.js';
+import ActivityControllers from '../apis/activities/controllers/activities.js';
 import { validate } from './middlewares/dataValidator.js';
 
 const router = Router();
